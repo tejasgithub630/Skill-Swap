@@ -1,0 +1,212 @@
+.admin-modal-content {
+  max-width: 820px;
+  width: 92%;
+  border-radius: 16px;
+  padding: 24px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-badge-icon {
+  background: #4f46e5;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-tab-nav {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.admin-tab-btn {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.admin-tab-btn.active {
+  color: #4f46e5;
+  border-bottom-color: #4f46e5;
+}
+
+.admin-modal-body {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.admin-requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-request-card {
+  padding: 16px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-left: 4px solid #94a3b8 !important;
+}
+
+.admin-request-card.requested {
+  border-left-color: #f59e0b !important;
+}
+
+.admin-request-card.approved {
+  border-left-color: #10b981 !important;
+}
+
+.admin-request-card.rejected {
+  border-left-color: #ef4444 !important;
+}
+
+.request-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.request-title-row h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.domain-badge {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.domain-badge.engineering {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.domain-badge.medical {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.status-badge {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.status-badge.status-requested {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.status-badge.status-approved {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.status-badge.status-rejected {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.request-desc {
+  font-size: 0.85rem;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.request-justification {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.request-meta-info {
+  display: flex;
+  gap: 14px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  flex-wrap: wrap;
+}
+
+.admin-action-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.status-resolved-text {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  padding: 8px;
+}
+
+.skills-grid-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.admin-skill-pill-card {
+  padding: 12px !important;
+}
+
+.skill-name-bold {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.skill-cat-sub {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 4px 0 8px;
+}
+
+.aliases-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.aliases-label {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.alias-chip {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.assessment-indicator {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #10b981;
+}

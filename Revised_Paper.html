@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI-Assisted Skill Swap Platform for Collaborative Learning</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            line-height: 1.15;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            color: #000;
+            background-color: #fff;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 24pt;
+            font-weight: normal;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        .authors-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 40px;
+            margin-bottom: 30px;
+        }
+        .author-block {
+            text-align: center;
+            font-size: 11pt;
+            flex: 0 1 30%;
+        }
+        .author-block-bottom {
+            flex: 0 1 40%;
+        }
+        .author-name {
+            font-size: 11pt;
+        }
+        .author-dept {
+            font-style: italic;
+        }
+        .author-email {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .content {
+            column-count: 2;
+            column-gap: 0.25in;
+            text-align: justify;
+        }
+
+        .abstract-section {
+            font-size: 9pt;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .keywords-section {
+            font-size: 9pt;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 10pt;
+            text-transform: uppercase;
+            text-align: center;
+            font-variant: small-caps;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        
+        h3 {
+            font-size: 10pt;
+            font-style: italic;
+            font-weight: normal;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 10pt;
+            text-indent: 0.15in;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .equation {
+            text-align: center;
+            font-style: italic;
+            margin: 10px 0;
+            font-size: 10pt;
+        }
+
+        .references p {
+            font-size: 8pt;
+            text-indent: -0.2in;
+            padding-left: 0.2in;
+            margin-bottom: 3px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 8pt;
+            text-align: center;
+            break-inside: avoid;
+        }
+        .custom-table th, .custom-table td {
+            border: 1px solid #d9d9d9;
+            padding: 4px;
+        }
+        .custom-table th {
+            background-color: #2b5b84;
+            color: white;
+            font-weight: bold;
+        }
+        .custom-table td:nth-child(1) {
+            background-color: #2b5b84;
+            color: white;
+            text-align: left;
+            font-weight: bold;
+        }
+        .bg-light-gray { background-color: #e6e6e6; }
+        .bg-gray { background-color: #cccccc; }
+        .bg-light-blue { background-color: #d9e5f2; }
+        .bg-green { background-color: #e2efda; color: #38761d; font-weight: bold; }
+        .text-green { color: #38761d; font-weight: bold; }
+        .text-red { color: #cc0000; font-weight: bold; }
+        
+        .table-caption {
+            text-align: center;
+            font-size: 8pt;
+            margin-bottom: 5px;
+        }
+
+        .custom-table-2 {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 7pt;
+            text-align: center;
+            break-inside: avoid;
+        }
+        .custom-table-2 th, .custom-table-2 td {
+            border: 1px solid #d9d9d9;
+            padding: 4px;
+        }
+        .custom-table-2 th {
+            background-color: #d9e5f2;
+            font-weight: bold;
+            color: #000;
+        }
+        .custom-table-2 td:nth-child(1) {
+            text-align: left;
+            font-weight: bold;
+        }
+        .custom-table-2 td:nth-child(2) {
+            text-align: left;
+        }
+        
+        .figure-placeholder {
+            text-align: center;
+            margin: 15px 0;
+            break-inside: avoid;
+        }
+        
+        .caption {
+            font-size: 8pt;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* --- Print Rules for PDF --- */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            @page {
+                size: letter;
+                margin: 0.7in;
+            }
+            h2, h3 {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+            p {
+                orphans: 3;
+                widows: 3;
+            }
+            .figure-placeholder, .custom-table, .custom-table-2 {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            .figure-placeholder img {
+                max-height: 3in;
+                object-fit: contain;
+            }
+            .custom-table, .custom-table-2 {
+                font-size: 7pt;
+            }
+            .custom-table th, .custom-table td, .custom-table-2 th, .custom-table-2 td {
+                padding: 2px;
+            }
+            .content {
+                column-fill: auto;
+            }
+        }
+
+        /* --- Recreated UI Components --- */
+        .ui-screenshot {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            background: #f8fafc;
+            text-align: left;
+            color: #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Dashboard 1 */
+        .ui-dash1-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .ui-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px;
+            flex: 1;
+        }
+        .ui-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 9pt;
+        }
+        .ui-card-title {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .ui-badge {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 7pt;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .ui-card-desc {
+            font-size: 7pt;
+            color: #64748b;
+            margin: 8px 0;
+            line-height: 1.3;
+        }
+        .ui-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 8pt;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .ui-btn-outline {
+            background: transparent;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 8pt;
+        }
+
+        /* Modal Decomposition */
+        .ui-modal {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        .ui-modal-header {
+            color: #6366f1;
+            font-size: 7pt;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .ui-modal-title {
+            font-size: 14pt;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 4px 0 12px 0;
+        }
+        .ui-score-box {
+            background: #f5f3ff;
+            border: 1px solid #ede9fe;
+            border-radius: 6px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        .ui-score-big {
+            font-size: 24pt;
+            font-weight: 800;
+            color: #4f46e5;
+        }
+        .ui-score-desc {
+            font-size: 8pt;
+            color: #475569;
+        }
+        .ui-decomp-row {
+            border: 1px solid #f1f5f9;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 6px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .ui-icon-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+        .ui-row-text {
+            flex: 1;
+        }
+        .ui-row-title {
+            font-size: 8.5pt;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            justify-content: space-between;
+        }
+        .ui-row-desc {
+            font-size: 7pt;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* Roadmap */
+        .ui-roadmap-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        .ui-stat-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px;
+            background: #fff;
+        }
+        .ui-stat-label {
+            font-size: 7pt;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .ui-stat-value {
+            font-size: 16pt;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 4px 0;
+        }
+        .ui-task-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px;
+            background: #fff;
+            margin-top: 8px;
+        }
+        .ui-task-title {
+            font-size: 9pt;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .ui-task-subtitle {
+            font-size: 7pt;
+            color: #64748b;
+        }
+        .ui-course-bar {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        .ui-course-fill {
+            height: 100%;
+            background: #4f46e5;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>AI-Assisted Skill Swap Platform for Collaborative Learning</h1>
+
+    <div class="authors-container">
+        <div class="author-block">
+            <div class="author-name">Yamini G</div>
+            <div class="author-dept">Department of Computer Science and Engineering<br>Dayananda Sagar Academy of Technology and Management<br>Bangalore, India</div>
+            <div class="author-email">yaminiyugandar@gmail.com</div>
+        </div>
+        <div class="author-block">
+            <div class="author-name">G Tejas Reddy</div>
+            <div class="author-dept">Department of Computer Science and Engineering<br>Dayananda Sagar Academy of Technology and Management<br>Bangalore, India</div>
+            <div class="author-email">1dt23cs064@dsatm.edu.in</div>
+        </div>
+        <div class="author-block">
+            <div class="author-name">Harshavardhan Reddy V</div>
+            <div class="author-dept">Department of Computer Science and Engineering<br>Dayananda Sagar Academy of Technology and Management<br>Bangalore, India</div>
+            <div class="author-email">1dt23cs071@dsatm.edu.in</div>
+        </div>
+        <div class="author-block author-block-bottom">
+            <div class="author-name">Jeevan B</div>
+            <div class="author-dept">Department of Computer Science and Engineering<br>Dayananda Sagar Academy of Technology and Management<br>Bangalore, India</div>
+            <div class="author-email">1dt23cs081@dsatm.edu.in</div>
+        </div>
+        <div class="author-block author-block-bottom">
+            <div class="author-name">Madhu H R</div>
+            <div class="author-dept">Department of Computer Science and Engineering<br>Dayananda Sagar Academy of Technology and Management<br>Bangalore, India</div>
+            <div class="author-email">1dt23cs111@dsatm.edu.in</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="abstract-section">
+            Abstract—Traditional online learning platforms usually just give you recorded videos and documents to read. But they don't give you tools to actually interact with peers and directly trade skills. People trying to learn often have a hard time finding study partners who share their exact interests but have different, complementary skills. That's why we built the AI-Assisted Skill Swap Platform. Our system actively connects people so they can teach and learn from each other using an intelligent matching process. It looks at what you know, what you want to learn, how you've interacted before, and your ratings to figure out the best partner for you. We included features like real-time chat, community groups, progress tracking, and automated certificates. We put the whole thing together using React.js on the frontend, Node.js and Express.js on the backend, MongoDB for the database, and Python to run the machine learning parts. The actual recommendation engine uses a scoring system that weighs skill compatibility, trust scores, attendance records, and even has a way to help new users get discovered. We ran functional tests and looked at metrics like match quality and system response times to make sure it works effectively.
+        </div>
+
+        <div class="keywords-section">
+            Keywords—Artificial Intelligence, Collaborative Learning, Skill Matching, Machine Learning, Recommendation System.
+        </div>
+
+        <h2>I. INTRODUCTION</h2>
+        <p>Digital classrooms exploded recently, completely changing how we access education. While studying online lets you work from anywhere, older e-learning websites are mostly a one-way street. You sit there watching a lecture or reading a PDF, but you almost never get to interact with anyone else in real time. Learning in a group is totally different. It lets students debate ideas, tackle hard problems together, and actually build practical skills instead of just memorizing facts.</p>
+        
+        <p>The problem is that finding someone to study with is surprisingly tough because everyone has different goals and skill levels. Sometimes you might be great at something another person is struggling with, and they might know exactly what you're trying to learn. But when you have thousands of people on a platform, finding that perfect match manually is impossible. People have tried using recommendation systems to fix online learning before. For instance, Kaiss et al. [1] made a hybrid recommender to suggest better resources. Amin et al. [2] built a personalized system for MOOCs that watches how you interact and then suggests courses. These show that models definitely work in education. The issue is they just suggest courses. They don't help you find actual human beings to learn with. Some people have looked into automating skill extraction too; Tamilarasi et al. [3] created a machine learning framework that figures out what skills people have to give them feedback.</p>
+        
+        <p>We saw this gap and built an AI-Assisted Skill Swap Platform to fix it. Instead of just treating you as a student, our platform treats you as a teacher and a learner at the same time. If you know machine learning but want to pick up React.js, the system finds someone who knows React.js and wants to learn machine learning. This lets two people help each other out instead of relying on standard video courses.</p>
+        
+        <p>Our platform takes AI matching and hooks it up with real-time chat, group study features, and progress tracking. We built the interface with React.js, handled the server with Node.js and Express, and used MongoDB to store everything. All the complex machine learning stuff runs on Python. The main goal here is to get these modules working together and test the system to see if AI matching actually helps people learn better together.</p>
+
+        <h2>II. RELATED WORK</h2>
+        <p>A lot of recent research looks at recommendation engines, pulling out skills from profiles, and career mapping. But almost all of it focuses on pointing users toward a textbook, a video, or a job opening, rather than setting up a direct skill trade between two people.</p>
+        
+        <p>Kaiss et al. [1] built a hybrid e-learning recommender that figures out what a student likes and suggests resources based on that. It works great for standard classes, but it's built to recommend files, not peers. Amin et al. [2] created an engine for smart education environments that suggests study materials. Again, they don't tackle the problem of matching users who have complementary teaching needs.</p>
+        
+        <p>Tamilarasi et al. [3] came up with an automated way to extract skills and recommend feedback. That kind of tech is useful for smart matching, but their work stops at figuring out the skills rather than setting up a peer-to-peer exchange. Selvaraj et al. [4] built an AI career tool that matches talent with open jobs. Predicting careers is definitely relevant, but their end goal is getting students hired, not helping them study together. Kadu et al. [5] did something similar, looking at how to predict student placements and suggest skills they need for the workforce, prioritizing getting a job over collaborative learning.</p>
+        
+        <p>Thaoroijam et al. [6] looked into trust-based hybrid systems, pointing out that you need to mix a few different factors to get a recommendation you can actually trust. We definitely use hybrid concepts in our system, but their specific research wasn't trying to solve group skill sharing. Looking at all these studies [1]–[6], it's clear that AI recommendations work well for personalizing learning and analyzing what people know. The missing piece is that they almost entirely ignore the idea of reciprocal peer learning, where a user can act as a student and a teacher at the exact same time.</p>
+        
+        <p>Our platform pushes the standard recommendation model further by focusing specifically on matching complementary skills. The system looks at what you know right now and what you want to know next, then hunts down the right partner. We built chat, progress tracking, and personalized suggestions straight into the platform so users can manage the entire learning exchange in one place.</p>
+
+        <!-- Table I -->
+        <div class="table-caption">Table I. Comparison of Proposed System with Existing Learning Platforms</div>
+        <table class="custom-table">
+            <tr>
+                <th>Features</th>
+                <th>Traditional<br>E-Learning<br>Platforms</th>
+                <th>Online Course<br>Platforms</th>
+                <th>Skill<br>Recommendation<br>Systems</th>
+                <th>Proposed AI-Assisted<br>Skill Swap Platform</th>
+            </tr>
+            <tr>
+                <td>Personalized Recommendations</td>
+                <td class="bg-light-gray">Limited</td>
+                <td class="bg-gray">Moderate</td>
+                <td class="bg-light-blue">Available</td>
+                <td class="bg-green">Advanced AI-Based</td>
+            </tr>
+            <tr>
+                <td>Skill Matching</td>
+                <td class="bg-light-gray">Not Available</td>
+                <td class="bg-gray">Not Available</td>
+                <td class="bg-light-blue">Available</td>
+                <td class="bg-green">Intelligent Matching</td>
+            </tr>
+            <tr>
+                <td>Peer-to-Peer Learning</td>
+                <td class="bg-light-gray">No</td>
+                <td class="bg-gray">Limited</td>
+                <td class="bg-light-blue">No</td>
+                <td class="bg-green">Yes</td>
+            </tr>
+            <tr>
+                <td>Real-Time Chat</td>
+                <td class="bg-light-gray">Limited</td>
+                <td class="bg-gray">Limited</td>
+                <td class="bg-light-blue">No</td>
+                <td class="bg-green">Yes</td>
+            </tr>
+            <tr>
+                <td>Collaborative Learning</td>
+                <td class="bg-light-gray">Low</td>
+                <td class="bg-gray">Moderate</td>
+                <td class="bg-light-blue">Low</td>
+                <td class="bg-green">High</td>
+            </tr>
+            <tr>
+                <td>Progress Tracking</td>
+                <td class="bg-light-gray">Basic</td>
+                <td class="bg-gray">Available</td>
+                <td class="bg-light-blue">Limited</td>
+                <td class="bg-green">Advanced</td>
+            </tr>
+            <tr>
+                <td>Rating & Review System</td>
+                <td class="bg-light-gray">Limited</td>
+                <td class="bg-gray">Limited</td>
+                <td class="bg-light-blue">No</td>
+                <td class="bg-green">Yes</td>
+            </tr>
+            <tr>
+                <td>Community Learning Groups</td>
+                <td class="bg-light-gray">No</td>
+                <td class="bg-gray">Partial</td>
+                <td class="bg-light-blue">No</td>
+                <td class="bg-green">Yes</td>
+            </tr>
+            <tr>
+                <td>AI-Based Course Recommendation</td>
+                <td class="bg-light-gray">Limited</td>
+                <td class="bg-gray">Moderate</td>
+                <td class="bg-light-blue">Yes</td>
+                <td class="bg-green">Advanced</td>
+            </tr>
+            <tr>
+                <td>Skill Swap Functionality</td>
+                <td class="bg-light-gray">No</td>
+                <td class="bg-gray">No</td>
+                <td class="bg-light-blue">No</td>
+                <td class="bg-green">Yes</td>
+            </tr>
+        </table>
+
+        <h2>III. SYSTEM DESIGN AND IMPLEMENTATION</h2>
+        <p>The AI-Assisted Skill Swap Platform basically creates a smart space where people can trade skills and work on group projects. The whole idea revolves around reciprocal skill exchanges. You act as both the student and the teacher. By checking what skills you have and what you actually want to learn, the platform hunts down the right partner for you instead of just handing you a course catalog. The system handles everything from managing your profile to skill matching, chatting with peers, tracking progress, and eventually generating a certificate.</p>
+        
+        <p>We built the architecture using a frontend layer, a recommendation engine in the middle, and a data layer. The frontend is where you register, build a profile, look at peer suggestions, and send out skill-swap requests. The backend processes the user data and runs the matching algorithms. The database layer obviously stores all the information required for matching, running group projects, and keeping track of certifications.</p>
+        
+        <p>We completely ignored the idea of recommending static resources. Instead, the system looks at your current abilities and your learning goals to find a human partner. You hand over two sets of data: the skills you already have (S<sub>i</sub><sup>have</sup>) and the skills you want to learn (S<sub>i</sub><sup>want</sup>). Two users, let's call them i and j, match up if at least one skill user i has is something user j wants, and vice versa:</p>
+        
+        <div class="equation">
+            S<sub>i</sub><sup>have</sup> ∩ S<sub>j</sub><sup>want</sup> ≠ ∅
+        </div>
+        <div class="equation">
+            S<sub>j</sub><sup>have</sup> ∩ S<sub>i</sub><sup>want</sup> ≠ ∅
+        </div>
+        
+        <p>If both of these checks pass, the two users are flagged as possible partners. The algorithm then sorts these matches by looking at their skill levels, interests, experience, ratings, and if they've collaborated well in the past.</p>
+
+        <h3>A. System Workflow</h3>
+        <p>Everything kicks off when a user registers and sets up their profile. The system immediately checks their preferences against the rest of the database. When it spots a reciprocal match—say User A knows Java and wants Python, and User B knows Python and wants Java—it alerts them both. A user can shoot over a skill-swap request. If the other person accepts, they can jump right into the built-in chat to figure out their meeting schedule. If you just want to casually learn, you can join community groups to share knowledge with people who have similar interests. The platform keeps an eye on your development as sessions happen. Once you finish a session, you rate your partner. We also set up the system to hand out certificates when you complete specific tasks or coursework.</p>
+        
+        <h3>B. Implementation of Major Modules</h3>
+        <p><strong>User Registration and Profile Management:</strong> You drop in your basic info and list your current and desired skills when you sign up. The auth system locks down the account so only registered members get in. You can always go back and tweak your profile when you learn something new.</p>
+        <p><strong>Skill Matching and Recommendation:</strong> This is the core module. It weighs your current abilities against what you want to learn. The algorithm searches for users who can help each other out. It throws data like interests, past experience, and ratings into the mix to pick the absolute best partner.</p>
+        <p><strong>Skill-Swap and Communication Module:</strong> After you find a good partner, you send a request. When they approve it, a real-time chat window opens up so you can talk directly and schedule a session. You don't need to jump onto a third-party app to coordinate.</p>
+        <p><strong>Progress Tracking and Feedback:</strong> Users can log their development and review what they've finished. After a session wraps up, you get to rate the experience and write a quick review. This feedback basically tells everyone else if the session was useful and gives a hint about the person's teaching style.</p>
+        <p><strong>Community Learning and Certificate Generation:</strong> We wanted to push community learning, so the platform helps people with shared interests jump into group chats. The system also generates digital certificates when you finish specific activities, giving you a concrete record of what you accomplished.</p>
+
+        <!-- Figure 2 Table -->
+        <div class="table-caption">Fig. 2. Comparison of Existing Approaches and the Proposed Platform</div>
+        <table class="custom-table-2">
+            <tr>
+                <th>Approach</th>
+                <th>Main Objective</th>
+                <th>Skill-Based<br>Recommendation</th>
+                <th>Reciprocal<br>Skill Matching</th>
+                <th>Peer-to-Peer<br>Interaction</th>
+                <th>Collaborative<br>Learning</th>
+            </tr>
+            <tr>
+                <td>Kaiss et al. [1]</td>
+                <td>Personalized e-learning<br>recommendation</td>
+                <td>Limited</td>
+                <td class="text-red">X</td>
+                <td>Limited</td>
+                <td>Limited</td>
+            </tr>
+            <tr>
+                <td>Amin et al. [2]</td>
+                <td>Personalized MOOC/<br>e-learning recommendation</td>
+                <td>Limited</td>
+                <td class="text-red">X</td>
+                <td>Limited</td>
+                <td>Limited</td>
+            </tr>
+            <tr>
+                <td>Tamilarasi et al. [3]</td>
+                <td>Skill extraction and<br>feedback recommendation</td>
+                <td class="text-green">✓</td>
+                <td class="text-red">X</td>
+                <td class="text-red">X</td>
+                <td class="text-red">X</td>
+            </tr>
+            <tr>
+                <td>Selvaraj et al. [4]</td>
+                <td>Career mapping and<br>job-role prediction</td>
+                <td class="text-green">✓</td>
+                <td class="text-red">X</td>
+                <td class="text-red">X</td>
+                <td class="text-red">X</td>
+            </tr>
+            <tr>
+                <td>Kadu et al. [5]</td>
+                <td>Placement prediction<br>and skill recommendation</td>
+                <td class="text-green">✓</td>
+                <td class="text-red">X</td>
+                <td class="text-red">X</td>
+                <td class="text-red">X</td>
+            </tr>
+            <tr>
+                <td>Thaoroijam et al. [6]</td>
+                <td>Trust-based hybrid<br>recommendation</td>
+                <td>Partial</td>
+                <td class="text-red">X</td>
+                <td>Limited</td>
+                <td>Limited</td>
+            </tr>
+            <tr>
+                <td class="bg-green">Proposed Platform</td>
+                <td class="bg-green">Peer-to-peer skill<br>exchange</td>
+                <td class="bg-green">✓</td>
+                <td class="bg-green">✓</td>
+                <td class="bg-green">✓</td>
+                <td class="bg-green">✓</td>
+            </tr>
+        </table>
+
+        <h2>IV. COMPARATIVE ANALYSIS</h2>
+        <p>Plenty of research dives into personalized e-learning and career prediction. But practically all of them just try to find you a good course or a job instead of connecting you with another human to trade skills. Kaiss et al. [1] and Amin et al. [2] both zero in on recommending courses. Tamilarasi et al. [3] work on automatically identifying skills. Selvaraj et al. [4] and Kadu et al. [5] strictly look at career mapping and predicting job placements. Thaoroijam et al. [6] mess around with trust-based recommendation formulas.</p>
+        
+        <p>Our approach completely flips how we look at user relationships. Instead of pointing you to a job board or a video, our system looks at what you know and what you're trying to figure out. It checks if you have what the other person needs, while simultaneously checking if they have what you need. This makes way more sense for peer-to-peer skill sharing than traditional educational recommendations.</p>
+        
+        <p>Most platforms out there obsess over customizing standard learning tracks and improving recommendation accuracy, but they totally ignore the idea of students actively trading talents. Our tool fixes this by letting you play both roles at once—you learn something new while teaching something you already mastered. Since we threw chat, progress tracking, and certification into the mix, you control your entire learning journey in one spot. The biggest takeaway here is that we combined reciprocal skill matching with an actual end-to-end peer learning environment.</p>
+
+        <h2>V. PERFORMANCE EVALUATION</h2>
+        <p>We tested out the platform to see if it actually works the way we designed it, specifically looking at how well the recommendation engine picks peer-learning partners and generates its compatibility scores.</p>
+        
+        <h3>A. Experimental Setup</h3>
+        <p>We fed the prototype a bunch of sample user profiles. These profiles were packed with different skills, learning goals, proficiency levels, ratings, and past teaching sessions. The main thing the system looked for was reciprocal matching. The interface takes these matches and spits out a composite match score, sorting candidates based on their verified skills, how reliable they are with attendance, and their overall ratings.</p>
+
+        <h3>B. Composite Match-Score Evaluation</h3>
+        <p>The recommendation engine doesn't just look at one thing. It actually generates a composite match score by throwing four major factors into the blender: skill compatibility, a Bayesian trust score mixed with attendance reliability, pedagogical experience, and a cold-start exploration bonus.</p>
+        
+        <p>For skill compatibility, it checks the relationship between what someone offers and what the other person wants. It uses skill normalization, taxonomy information, and Bigram Jaccard-based similarity to figure this out. The trust score takes a Bayesian-adjusted rating and mixes it directly with how often the person actually shows up for sessions. Finally, pedagogical experience just looks at how many sessions you've taught, how good you are, and how long you've been doing it.</p>
+        
+        <p>In our implementation, skill compatibility gets 40% of the weight, trust and attendance gets 25%, and pedagogical experience gets 20%. That leaves a bit of room for the cold-start mechanism, which essentially gives new, verified mentors a small boost so they don't get buried at the bottom of the list. The interface breaks all of this down mathematically so you actually understand where the recommendation score comes from. In our tests, the interface was throwing out composite match scores like 60% and 84% for different candidate profiles. Just to be clear, these are system-generated compatibility scores, not classification accuracy metrics.</p>
+
+        <div class="figure-placeholder">
+            <img src="dashboard1.png" alt="Engineering Dashboard" style="max-width: 100%; width: 100%; display: block; margin: 0 auto;">
+            <div class="caption">Fig. 1. Peer-skill recommendation dashboard with composite match scores.</div>
+        </div>
+
+        <div class="figure-placeholder">
+            <img src="decomposition.png" alt="Algorithmic decomposition" style="max-width: 100%; width: 100%; display: block; margin: 0 auto;">
+            <div class="caption">Fig. 2. Algorithmic decomposition of the composite skill-match score.</div>
+        </div>
+
+        <h3>C. Trust and Reliability Evaluation</h3>
+        <p>The trust component relies on a Bayesian adjustment so a single bad rating doesn't completely tank a user's score if they don't have many reviews yet. If R is the raw average rating and N is the total number of ratings, our Bayesian adjustment uses a prior mean of 4.5 and a prior weight of 3:</p>
+        <div class="equation">
+            B = [3(4.5) + N(R)] / (3 + N)
+        </div>
+        <p>We normalize this Bayesian value against a maximum rating of 5. Then, we combine that normalized rating with the user's actual attendance reliability using this weighting formula:</p>
+        <div class="equation">
+            T = 0.55B<sub>n</sub> + 0.45A
+        </div>
+        <p>where B<sub>n</sub> is the normalized Bayesian rating and A is their attendance reliability. Basically, this means the system cares just as much about whether you actually show up as it does about what people rate you.</p>
+
+        <h3>D. Pedagogical Experience and Cold-Start Evaluation</h3>
+        <p>We definitely want the platform to factor in teaching experience when it ranks partners. But we use logarithmic saturation for completed teaching sessions, which means the boost you get from teaching starts to taper off eventually. This stops super-users from monopolizing all the matches.</p>
+        
+        <p>The cold-start mechanism is there specifically to fix the issue where new users have no interaction history. If you are a verified mentor but have completed fewer than five teaching sessions, the system hands you an exploration bonus. That bonus shrinks every time you finish a session and disappears entirely once you hit the threshold. It gives new users a fighting chance to get recommended without throwing out our verification standards.</p>
+
+        <h3>E. Functional Evaluation</h3>
+        <p>During our functional evaluation, we poked around everything—user authentication, profile management, the recommendation engine, chat, and the certificate generator. The dashboard successfully presented potential learning partners alongside their compatibility scores and exactly why they matched. We verified that users could smoothly shoot over skill-swap requests and start chatting. The verification system successfully split up verified skills from unverified self-declared ones.</p>
+
+        <div class="figure-placeholder">
+            <img src="recommendations.png" alt="Personalized Recommendations" style="max-width: 100%; width: 100%; display: block; margin: 0 auto;">
+            <div class="caption">Fig. 3. Peer-skill recommendation dashboard showing top skill matches and learning requests.</div>
+        </div>
+
+        <h3>F. Discussion of Evaluation</h3>
+        <p>The evaluation proves that the platform actually uses a multi-factor approach instead of just looking for direct keyword overlaps. Skill compatibility is the heavy lifter, but throwing in trust, attendance, teaching experience, and the cold-start bonus makes the rankings way better.</p>
+        
+        <p>Giving users the algorithmic breakdown was a smart move because it makes the recommendation process completely transparent. Phase 1 of our evaluation was mostly about proving the concept and testing the mechanics. To get solid statistical proof and see how it handles scale, we'd obviously need to run it with way more users and much larger datasets.</p>
+
+        <h2>VI. CONCLUSION AND FUTURE WORK</h2>
+        <p>We successfully built an AI-Assisted Skill Swap Platform that actually works for collaborative learning. The whole point was to help people find partners to trade skills with. Instead of shoving course recommendations at you, the system digs into what you know and what you want to learn to find a reciprocal match.</p>
+        
+        <p>We packed the platform with everything you need: profile management, skill matching, chat, progress tracking, and certificates. The matching engine doesn't just stop at skill overlap; it pulls in trust scores, attendance records, teaching experience, and even helps out new users.</p>
+        
+        <p>The first phase proves that all these isolated features work together seamlessly as one platform. You can create a profile, get matched, start chatting, and track your learning. We tested the core mechanics, but moving forward, we really need to run it against a massive dataset to see how it performs under pressure.</p>
+        
+        <p>For the next phase, we want to roll out a robust skill verification system. If you want to teach a skill for the first time, you'll have to pass an assessment with at least an 80%. For coding skills, this means actual programming questions. To stop cheating, we plan to wire up camera monitoring and tab-switch detection. If you click off the test page, the system will just end your session.</p>
+        
+        <p>We're also going to build out an admin dashboard so someone can manage users, approve new skills, and handle content moderation. We want to push the platform into completely different fields too, like medical learning, which would need two-way and three-way interactions. We're thinking about adding timestamped lecture videos with built-in quizzes. All of these upgrades will make the platform much more reliable, focusing heavily on proving users actually have the skills they claim to have.</p>
+
+        <h2>REFERENCES</h2>
+        <div class="references">
+            <p>[1] W. Kaiss, K. Mansouri, and F. Poirier, "Personalized learning recommender system based on a hybrid approach," in Proc. IEEE Global Engineering Education Conference (EDUCON), 2022, pp. 1621–1627.</p>
+            <p>[2] S. Amin, M. I. Uddin, W. K. Mashwani, A. A. Alarood, A. Alzahrani, and A. O. Alzahrani, "Developing a Personalized E-Learning and MOOC Recommender System in IoT-Enabled Smart Education," IEEE Access, vol. 11, pp. 136437–136455, 2023.</p>
+            <p>[3] M. Tamilarasi, R. Harish Ragavendar, M. Sasi Kumar and S. Nandhakumar, "Automation Of Skill Extraction And Feedback Recommender System Using Machine Learning," 2025 6th International Conference on Recent Advances in Information Technology (RAIT), Dhanbad, India, 2025, pp. 1-5.</p>
+            <p>[4] K. Selvaraj, M. Adnan, K. Vishnupriya, and M. Reddy, "AI-Driven Intelligent Career Mapping and Skill-based Job Role Predicting Career Guidance System," in Proc. Third International Conference on Augmented Intelligence and Sustainable Systems (ICAISS), 2025.</p>
+            <p>[5] R. Kadu, P. J. Assudani, T. Mukewar, J. Kapgate, and R. Bijekar, "Student Placement Prediction and Skill Recommendation System using Machine Learning Algorithms," in Proc. International Conference on Inventive Computation Technologies (ICICT), 2024.</p>
+            <p>[6] K. Thaoroijam, S. Naveen Kumar, S. Sadeesh Kumar, H. Durani, C. H. Nirosha, and P. Agrawal, "Integrating Trust-Based Hybrid Recommendation Systems with Soft Computing Techniques for Effective Recommendations," in Proc. IEEE Madhya Pradesh Section Conference (MPCON), 2025.</p>
+            <p>[7] R. Madduri, Z. Li, T. Nandi, K. Kim, M. Ryu, and A. Rodriguez, "Advances in Privacy Preserving Federated Learning to Realize a Truly Learning Healthcare System," in Proc. IEEE 6th International Conference on Trust, Privacy and Security in Intelligent Systems and Applications (TPS-ISA), 2024.</p>
+            <p>[8] G. Uma Maheswari, J. Gnana Jeslin, M. Rajasuguna, and A. S., "Transforming Healthcare with Federated Learning-based Artificial Intelligence: Concepts, Classifications, and Challenges," in Proc. 3rd International Conference on Sentiment Analysis and Deep Learning (ICSADL), 2024.</p>
+            <p>[9] S. Aggarwal and D. Tripathi, "AI-Generated Content on Social Networking Sites: Reviewing Trust and Authenticity of the Users," in Proc. IEEE DELCON International Conference on Recent Smart Technologies in Engineering for Sustainable Development, 2025.</p>
+            <p>[10] A. Agarwal, "Visual Provenance: Adaptive Networks for Synthetic Content Detection," in Proc. World Skills Conference on Universal Data Analytics and Sciences (WorldSUAS), 2025.</p>
+        </div>
+    </div>
+</body>
+</html>

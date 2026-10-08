@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SkillSwap IEEE Paper</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 10pt;
+            line-height: 1.15;
+            margin: 0 auto;
+            max-width: 8.5in;
+            padding: 0.5in;
+        }
+
+        h1 {
+            font-size: 24pt;
+            text-align: center;
+            margin-bottom: 24pt;
+            font-weight: normal;
+        }
+
+        .authors {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 30pt;
+        }
+
+        .author-block {
+            width: 32%;
+            margin-bottom: 15pt;
+        }
+
+        .author-block-bottom {
+            width: 48%;
+            margin-bottom: 15pt;
+        }
+
+        .author-name {
+            font-size: 11pt;
+            font-weight: normal;
+        }
+
+        .author-affil {
+            font-size: 10pt;
+            font-style: italic;
+        }
+
+        .content {
+            column-count: 2;
+            column-gap: 0.25in;
+            text-align: justify;
+        }
+
+        h2 {
+            font-size: 10pt;
+            font-variant: small-caps;
+            text-align: center;
+            margin-top: 12pt;
+            margin-bottom: 4pt;
+        }
+
+        h3 {
+            font-size: 10pt;
+            font-style: italic;
+            font-weight: normal;
+            margin-top: 10pt;
+            margin-bottom: 4pt;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 10pt;
+            text-indent: 0.15in;
+        }
+
+        .abstract {
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .equation {
+            text-align: center;
+            margin: 10pt 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10pt 0;
+            font-size: 9pt;
+        }
+
+        table caption {
+            font-variant: small-caps;
+            margin-bottom: 4pt;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 4px;
+            text-align: center;
+        }
+
+        .diagram {
+            text-align: center;
+            margin: 15pt 0;
+            font-size: 9pt;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5pt;
+        }
+
+        .references {
+            font-size: 9pt;
+        }
+
+        .references p {
+            text-indent: -0.2in;
+            padding-left: 0.2in;
+            margin-bottom: 4pt;
+        }
+
+        .code-block {
+            font-family: "Courier New", Courier, monospace;
+            background: #f4f4f4;
+            padding: 10px;
+            font-size: 8.5pt;
+            white-space: pre-wrap;
+            text-align: left;
+            margin-bottom: 10pt;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 150px;
+            background-color: #eee;
+            border: 1px dashed #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5pt;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+    <!-- Include Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <!-- Include MathJax for Equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Include Chart.js for beautiful graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <h1>SkillSwap: Trust-Aware Three-Way Learning Rings with Assessment-Verified Skills for Peer Knowledge Exchange</h1>
+
+    <div class="authors">
+        <div class="author-block">
+            <div class="author-name">Yamini G</div>
+            <div class="author-affil">Dept. of Computer Science and Engineering<br>Dayananda Sagar Academy of
+                Technology<br>and Management<br>Bengaluru, India<br>yaminiyugandar@gmail.com</div>
+        </div>
+        <div class="author-block">
+            <div class="author-name">G Tejas Reddy</div>
+            <div class="author-affil">Dept. of Computer Science and Engineering<br>Dayananda Sagar Academy of
+                Technology<br>and Management<br>Bengaluru, India<br>1dt23cs064@dsatm.edu.in</div>
+        </div>
+        <div class="author-block">
+            <div class="author-name">Jeevan B</div>
+            <div class="author-affil">Dept. of Computer Science and Engineering<br>Dayananda Sagar Academy of
+                Technology<br>and Management<br>Bengaluru, India<br>1dt23cs081@dsatm.edu.in</div>
+        </div>
+        <div class="author-block-bottom">
+            <div class="author-name">Madhu HR</div>
+            <div class="author-affil">Dept. of Computer Science and Engineering<br>Dayananda Sagar Academy of
+                Technology<br>and Management<br>Bengaluru, India<br>1dt23cs111@dsatm.edu.in</div>
+        </div>
+        <div class="author-block-bottom">
+            <div class="author-name">Harshavardhan Reddy V</div>
+            <div class="author-affil">Dept. of Computer Science and Engineering<br>Dayananda Sagar Academy of
+                Technology<br>and Management<br>Bengaluru, India<br>1dt23cs071@dsatm.edu.in</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <p class="abstract">Abstract—Peer skill-exchange platforms let learners teach what they know in return for
+            learning what they need. The main issue is that a direct swap requires two users who each want exactly what
+            the other person offers. In smaller groups, this strict reciprocity rule leaves a lot of learners completely
+            unmatched. Furthermore, because users self-declare their skills and often lack reputation data when they
+            join, the quality of these matches can be pretty weak. To solve this, we built SkillSwap, a full-stack
+            platform (React 19, Node.js/Express 5, MySQL) that addresses these issues. It relies on a hybrid
+            skill-compatibility score built over a curated taxonomy, assessment-verified credentials graded by a
+            server-side proctoring pipeline, a Bayesian trust model driven by feedback, and a three-way "learning ring"
+            search that closes exchange cycles (A→B→C→A) using per-hop session credits. We evaluated the matching engine
+            in a reproducible simulation using its 15-skill taxonomy. In sparse groups where every user offers and seeks
+            a single skill, finding three-way rings increased the share of matched users by up to 13.5 percentage points
+            (jumping from 67.0% to 80.5% for 30 users). We also found that ranking tutors using our feedback-driven
+            trust model raised the actual quality of assigned tutors from 3.77 to 4.42 out of 5—closing 82% of the gap
+            to a perfect oracle. Using per-hop settlement also ensured that we didn't leave 30% of delivered sessions
+            uncredited, which would have happened if we required the entire ring to complete before paying out. We also
+            quantified a few limitations: the lexical similarity rule accidentally admitted 22.7% of unrelated
+            same-domain skill pairs, our deployed cold-start weight didn't change session inequality at all (Gini 0.855
+            vs. 0.856), and the ring discovery process unfortunately requires a quadratic number of relationship
+            lookups.</p>
+
+        <p><em>Index Terms</em>—peer learning, skill exchange, barter matching, cycle detection, trust model, cold
+            start, online assessment.</p>
+
+        <h2>I. INTRODUCTION</h2>
+        <p>When learners of similar standing help each other out, it usually improves understanding and engagement for
+            both the person explaining the concept and the person listening [8]. However, almost every online learning
+            platform today is still organized around one-way delivery of recorded courses. Skill-exchange platforms flip
+            this idea on its head: every user acts as both a teacher for skills they already possess and a learner for
+            skills they lack, and sessions are paid for with teaching time instead of actual money.</p>
+        <p>The biggest obstacle to this is reciprocity. A direct swap requires a double coincidence of wants: user A
+            must want what B offers, and B has to want what A offers. Traditional barter markets face this exact same
+            structural problem. In things like kidney-exchange programs, researchers proved that allowing trades among
+            three or more parties substantially increases the number of people who get matched [9]. However,
+            learning environments introduce two specific problems of their own. First, users self-declare their skills,
+            so the matching algorithm might pair a learner with someone who doesn't actually know how to teach the
+            topic. Second, brand new members don't have any feedback history, which means ranking people by reputation
+            alone just funnels all the sessions to a few popular veterans [10].</p>
+        <p>Most existing educational recommenders just push content, courses, or career paths [1]–[5], and trust-aware
+            hybrid systems try to improve those recommendations by adding reputation signals [6]. But none of these
+            systems actually evaluate multi-party exchanges between learners. This paper introduces SkillSwap, a fully
+            deployed platform that handles reciprocity, skill verification, and trust all at once, and we provide a
+            reproducible evaluation of its matching engine.</p>
+        <p>Our core contributions are:</p>
+        <p>1) <b>System.</b> We designed and implemented a three-tier skill-exchange platform that includes a canonical
+            skill taxonomy, a 470-question assessment bank covering 23 topics, server-side grading, browser proctoring,
+            and publicly verifiable certificates (Sections III–VI).</p>
+        <p>2) <b>Algorithms.</b> We formally describe our matching pipeline, which features a hybrid skill-pair score, a
+            composite match score, a Bayesian trust model updated by session feedback, a cold-start exploration boost,
+            and a three-way learning-ring search that uses a ring-health score and per-hop session credits (Section IV).
+        </p>
+        <p>3) <b>Evaluation.</b> We ran a seeded simulation that directly calls the production matching module without
+            any modifications to measure edge validity, exchange coverage, ranking quality, the feedback loop, fairness,
+            ring completion, and system scalability (Section VII).</p>
+        <p>4) <b>Analysis.</b> We provide a quantified discussion of where the current design falls short, along with
+            concrete parameter guidance for the next iteration (Section VIII).</p>
+
+        <h2>II. RELATED WORK</h2>
+
+        <h3>A. Educational recommender systems</h3>
+        <p>Kaiss et al. combined collaborative and content-based filtering to personalize learning resources [1], and
+            Amin et al. built a MOOC recommender tailored for IoT-enabled smart education [2]. Tamilarasi et al. focused
+            on extracting skills from profiles to generate feedback-oriented recommendations [3], while Selvaraj et al.
+            and Kadu et al. mapped specific skills to career roles to predict placement outcomes [4], [5]. Thaoroijam
+            et al. proved that integrating trust into hybrid recommenders improves overall performance [6]. The
+            limitation here is that these systems recommend static items to a learner; SkillSwap is built to match
+            actual people to each other under a strict reciprocity constraint.</p>
+
+        <h3>B. Matching markets and barter exchange</h3>
+        <p>Classic two-sided matching is usually solved with stable matching algorithms [9], but that assumes you have
+            two completely disjoint groups. Skill exchange is one-sided because every user is both offering and wanting
+            something at the same time. Kidney exchange is probably the closest real-world analogue. Roth et al.
+            formalized the concept of exchange cycles [9], Abraham et al. proved that capping the cycle length (usually
+            at three) keeps the matching process tractable while still recovering most of the benefits [9], and
+            Dickerson et al. figured out how to make those allocations robust against individual exchanges failing [9].
+            You can enumerate the elementary cycles of a directed graph exactly [9]; SkillSwap takes advantage of this
+            by running a bounded depth-three search originating from the requesting user.</p>
+
+        <h3>C. Reputation, trust and cold start</h3>
+        <p>Reputation systems gather user feedback to predict how someone will behave in the future [8]. Bayesian
+            formulations—like the beta reputation system—are great because they temper scores that are based on very few ratings [8]. Pure reputation ranking suffers heavily from the cold-start problem [10] and popularity bias,
+            where already-popular providers just get more and more exposure [10]. To ensure quality, automated online
+            proctoring has been heavily studied for unsupervised exams [7]; SkillSwap applies a lightweight,
+            browser-side version of this to gate skill verification.</p>
+
+        <table>
+            <caption>TABLE I<br>COMPARISON WITH RELATED APPROACHES</caption>
+            <tr>
+                <th>Approach</th>
+                <th>Peer-peer<br>reciprocal</th>
+                <th>Cycles ≥3</th>
+                <th>Verified<br>skills</th>
+                <th>Feedback<br>trust</th>
+            </tr>
+            <tr>
+                <td>Content RS [1], [2]</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td>Skill/career RS [3]–[5]</td>
+                <td>--</td>
+                <td>--</td>
+                <td>Partial</td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td>Trust hybrid [6]</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>Kidney/barter exchange [9]</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>n/a</td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td><b>SkillSwap (this work)</b></td>
+                <td><b>Yes</b></td>
+                <td><b>Yes</b></td>
+                <td><b>Yes</b></td>
+                <td><b>Yes</b></td>
+            </tr>
+        </table>
+
+        <h2>III. SYSTEM ARCHITECTURE</h2>
+        <p>SkillSwap operates on a standard three-tier architecture (Figure 1: Three-tier architecture). The presentation tier is a React 19
+            single-page application built with Vite; it gives users role-specific dashboards for engineering and medical
+            learners, an admin console, the proctored assessment interface, the learning-ring view, and a public
+            certificate verifier. The application tier runs on a Node.js/Express 5 REST API organized into four main
+            functional modules: the matching engine, the assessment service, trust and feedback, and the skill taxonomy.
+            Every protected route sits behind JWT authentication middleware (where tokens expire after seven days), and
+            the administrator routes require a specific admin role. Passwords are all hashed using bcrypt. Finally, the
+            data tier relies on a relational MySQL database accessed via the Sequelize ORM using foreign-key
+            associations.</p>
+
+        <div class="diagram">
+            <div class="mermaid">
+                graph TD
+                subgraph P ["Presentation Tier"]
+                A1[Dashboards]
+                A2[Admin Console]
+                A3[Assessment UI]
+                end
+                subgraph A ["Application Tier"]
+                B1[Matching Engine]
+                B2[Assessment Service]
+                B3[Trust & Feedback]
+                end
+                subgraph D ["Data Tier"]
+                C1[(Users & Profiles)]
+                C2[(Canonical Skills)]
+                C4[(Assessments & Certs)]
+                end
+                P --> A
+                A --> D
+            </div>
+            <em>Fig. 1. Three-tier architecture of SkillSwap.</em>
+        </div>
+
+        <p><b>Skill taxonomy.</b> If you rely on free-text skill names, you break the matching engine ("ReactJS",
+            "React.js", "react"). SkillSwap fixes this by storing every skill once as a canonical record featuring a
+            slug, a category, a domain, and any number of aliases. Users can propose a new skill via a request that an
+            admin can either approve, reject, or put under review. Typed, weighted relationships (like RELATED,
+            COMPLEMENTARY, SPECIALIZATION) tie these canonical skills together. The taxonomy we seeded the database with
+            contains 15 skills (9 engineering, 6 medical) and 8 relationships with strengths ranging from 0.80 to 0.95
+            (for instance, TypeScript→React is 0.95 and Radiology→Cardiology is 0.85).</p>
+
+        <p><b>User skills.</b> Whenever a user adds a teachable skill, it gets stored alongside a proficiency level
+            (beginner to expert), their years of experience, and a verification status (self-declared, verified,
+            expired, or revoked). Wanted skills are simply stored with a priority ranking. User profiles also hold the
+            aggregated feedback needed for the trust model: their mean rating, total rating count, attendance
+            reliability, total sessions conducted, and a balance of escrow credits.</p>
+
+        <h2>IV. MATCHING ALGORITHMS</h2>
+        <p>Let's assume a mentor offers a skill (\(o\)) and a learner wants a skill (\(w\)). All of our scores sit
+            between 0 and 1; we use a clip function to bound values to that interval. The parameter values we discuss
+            here reflect the actual deployed engine (Table II: Weights and Thresholds).</p>
+
+        <h3>A. Hybrid skill-pair compatibility</h3>
+        <p>Our pair score blends together lexical, taxonomic, and contextual evidence:</p>
+        <div class="equation">
+            $$ s(o,w) = \text{clip}\big( m_p \cdot (0.45 \sigma + 0.25 \tau + 0.15 \delta + 0.15 c_v) \big) \quad (1) $$
+        </div>
+        <p>Here, \(\sigma\) is 1 if they are the exact same canonical skill. Otherwise, it's the character-bigram
+            Jaccard similarity of the normalized names [3], which gets bumped up to at least 0.75 if one name contains
+            the other as a substring. \(\tau\) represents the relationship strength between the two skills in either
+            direction (or 0 if they are unrelated). \(\delta\) is 1 if both skills share a domain and 0.5 otherwise.
+            \(c_v\) is 1.25 for an assessment-verified offer and 0.85 for a self-declared one. Finally, \(m_p\) is a
+            multiplier from {0.85, 1.00, 1.10, 1.20} that scales based on whether the user is a beginner or an expert.
+        </p>
+
+        <h3>B. Mentor experience, trust and feedback</h3>
+        <p>We saturate teaching experience logarithmically so that veterans can't just accumulate an unbeatable,
+            unbounded advantage:</p>
+        <div class="equation">
+            $$ E = 0.5 \min\left(1, \frac{\ln(1+n)}{\ln 26}\right) + 0.35\pi + 0.15 \min\left(1, \frac{y}{5}\right)
+            \quad (2) $$
+        </div>
+        <p>In this formula, \(n\) is the number of sessions they've conducted, \(\pi\) is the highest proficiency weight
+            among all of the mentor's teaching skills, and \(y\) is their years of experience.</p>
+        <p>Learner feedback is processed through a Bayesian average rating that intentionally shrinks sparse evidence
+            toward a prior baseline [8]:</p>
+        <div class="equation">
+            $$ \bar{R} = \frac{C m + k \bar{r}}{C + k}, \quad C = 3, \; m = 4.5 \quad (3) $$
+        </div>
+        <div class="equation">
+            $$ T = 0.55 \frac{\bar{R}}{5} + 0.45 \rho \quad (4) $$
+        </div>
+        <p>where \(\bar{r}\) is the mean of \(k\) session ratings and \(\rho\) (between 0 and 1) represents the mentor's
+            attendance reliability. Both are stored directly on the mentor's profile. Updating \(k\), \(\bar{r}\), and
+            \(\rho\) after each rated session closes a feedback loop in which past learners' experiences shape future
+            rankings.</p>
+
+        <h3>C. Cold-start exploration</h3>
+        <p>To make sure newly certified mentors actually get some exposure, we apply a temporary boost that decays
+            linearly over their first five sessions, but only if at least one of their teaching skills is actually
+            assessment-verified:</p>
+        <div class="equation">
+            $$ b = \begin{cases} 0.25 \left(1 - \frac{n}{5}\right) & \text{if } n < 5 \text{ and verified} \\ 0 &
+                \text{otherwise} \end{cases} \quad (5) $$ </div>
+                <p>If a learner is facing a tight deadline and activates urgent mode, this boost gets suppressed, and
+                    the weights shift entirely toward trust and experience.</p>
+
+                <h3>D. Composite direct-match score</h3>
+                <p>For a learner A and a candidate mentor B, let \(S_{AB}\) be the highest pair score of any offer from
+                    A against any want from B, and \(S_{BA}\) be the converse. The final match score combines this skill
+                    fit with the mentor's quality signals and a reciprocity term:</p>
+                <div class="equation">
+                    $$ M = w_s \max(S_{AB}, S_{BA}) + w_t T_B + w_e E_B + w_c b_B + 0.1 Q \quad (6) $$
+                </div>
+                <p>where \(Q = 1\) if both \(S_{AB}\) and \(S_{BA}\) exceed 0.5 (meaning it's a genuine two-way swap)
+                    and \(Q = (S_{AB} + S_{BA})/2\) otherwise. We clip this score to [0, 1] and display it to the
+                    learner as a percentage, alongside a textual breakdown explaining the individual components
+                    (Algorithm 1).</p>
+
+                <table>
+                    <caption>TABLE II<br>WEIGHTS AND THRESHOLDS OF THE DEPLOYED ENGINE</caption>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Standard</th>
+                        <th>Urgent</th>
+                    </tr>
+                    <tr>
+                        <td>Skill compatibility \(w_s\)</td>
+                        <td>0.40</td>
+                        <td>0.45</td>
+                    </tr>
+                    <tr>
+                        <td>Trust \(w_t\)</td>
+                        <td>0.25</td>
+                        <td>0.30</td>
+                    </tr>
+                    <tr>
+                        <td>Experience \(w_e\)</td>
+                        <td>0.20</td>
+                        <td>0.25</td>
+                    </tr>
+                    <tr>
+                        <td>Cold-start boost \(w_c\)</td>
+                        <td>0.15</td>
+                        <td>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Reciprocity bonus</td>
+                        <td>0.10</td>
+                        <td>0.10</td>
+                    </tr>
+                    <tr>
+                        <td>Ring edge threshold on \(s(o,w)\)</td>
+                        <td>0.40</td>
+                        <td>0.40</td>
+                    </tr>
+                    <tr>
+                        <td>Minimum ring health \(H\)</td>
+                        <td>45</td>
+                        <td>45</td>
+                    </tr>
+                    <tr>
+                        <td>Bayesian prior \((C, m)\)</td>
+                        <td>(3, 4.5)</td>
+                        <td>(3, 4.5)</td>
+                    </tr>
+                </table>
+
+                <div class="code-block">Algorithm 1: Direct match ranking (GET /api/matches)
+1: Input: learner A, active users U, mode ∈ {standard, urgent}
+2: L ← ∅
+3: for each B ∈ U \ {A} do
+4:     S_AB ← max s(o, w) over o ∈ offers(A), w ∈ wants(B)
+5:     S_BA ← max s(o, w) over o ∈ offers(B), w ∈ wants(A)
+6:     compute T_B, E_B, b_B from B's profile and feedback
+7:     M ← composite score (6); append (B, M, components) to L
+8: return L sorted by M, descending</div>
+
+                <h3>E. Three-way learning rings</h3>
+                <p>When we can't find a reciprocal partner, SkillSwap triggers a search for a learning ring where A
+                    teaches B, B teaches C, and C teaches A (Figure 2: Three-way learning ring). It constructs a directed graph where an edge u→v
+                    exists as long as the best pair score of a u-offer against a v-want hits at least 0.40, with an edge
+                    weight of:</p>
+                <div class="equation">
+                    $$ \omega_{uv} = 0.45 s_{uv} + 0.25 T_u + 0.20 E_u + 0.10 b_u \quad (7) $$
+                </div>
+                <p>It then enumerates every directed triangle starting from the requesting user (Algorithm 2). Because a
+                    ring instantly fails if any single participant flakes out, its health score takes the geometric mean
+                    of the three edge weights and multiplies it by the weakest participant's attendance reliability
+                    [9]:</p>
+                <div class="equation">
+                    $$ H = 100 (\omega_{AB} \omega_{BC} \omega_{CA})^{1/3} \cdot \min(\rho_A, \rho_B, \rho_C) \quad (8)
+                    $$
+                </div>
+                <p>Rings with an \(H\) score ≥ 45 are returned to the user, sorted by \(H\). Because synchronizing three
+                    people's schedules is notoriously difficult, rings actually run asynchronously. A mentor claims
+                    their session credit (stored as an "escrow credit") the moment their specific hop is completed,
+                    rather than waiting for the entire ring to close. Every user starts with five credits.</p>
+
+                <div class="diagram">
+                    <div class="mermaid">
+                        graph LR
+                        A((User A)) -- "Offers o_A<br>Wants w_B" --> B((User B))
+                        B -- "Offers o_B<br>Wants w_C" --> C((User C))
+                        C -- "Offers o_C<br>Wants w_A" --> A
+                    </div>
+                    <em>Fig. 2. A three-way learning ring. No two users can swap directly, but the cycle A→B→C→A lets
+                        all three learn.</em>
+                </div>
+
+                <div class="code-block">Algorithm 2: Three-way learning-ring discovery (GET /api/matches/rings)
+1: Input: requesting user A, active users U
+2: for each ordered pair (u, v), u ≠ v do
+3:     s ← max s(o, w) over o ∈ offers(u), w ∈ wants(v)
+4:     if s ≥ 0.40 then add edge u→v with weight ω_uv (7)
+5: Rings ← ∅
+6: for each edge A→B do
+7:     for each edge B→C with C ∉ {A, B} do
+8:         if edge C→A exists then
+9:             H ← ring health (8)
+10:            if H ≥ 45 then Rings ← Rings ∪ {(A, B, C, H)}
+11: return Rings sorted by H, descending</div>
+
+                <p>Edge construction requires evaluating every ordered pair of users, meaning it costs O(N²·|o|·|w|)
+                    pair scores for N users with |o| offered and |w| wanted skills. Triangle enumeration runs in O(d³)
+                    for an out-degree of d, because the closing edge C→A is found by a linear scan.</p>
+
+                <h2>V. ASSESSMENT, FEEDBACK AND CREDENTIALS</h2>
+                <p>A skill only becomes officially verified through our assessment pipeline. When a learner starts a
+                    test, the server generates an attempt record and sends over the questions without the correct
+                    answers attached. The browser immediately enforces full-screen mode, disables copy/paste and
+                    keyboard shortcuts, and turns on a webcam preview. If a user leaves full-screen or switches tabs,
+                    the browser ends the attempt and reports the event to the server, which independently invalidates
+                    the test if it logs six violations.</p>
+                <p>Once submitted, the server checks the elapsed time against the limit (plus a 60-second grace period)
+                    and grades every answer itself, storing each answer with its correctness.</p>
+                <p>Learners get immediate feedback: a per-question review marking each answer correct or incorrect, and
+                    a breakdown of correct answers by difficulty (easy, medium, hard). A score of at least 80% passes.
+                    We derive proficiency directly from the score (≥90% expert, ≥80% advanced, ≥70% intermediate).
+                    Passing generates a unique certificate of the form SKILLSWAP-&lt;SKILL&gt;-&lt;YEAR&gt;-&lt;6
+                    digits&gt;, valid for 24 months. The user's skill is marked verified, which raises \(c_v\) in (1)
+                    and unlocks the cold-start boost. Anyone can check a certificate's status at a public URL;
+                    administrators can also revoke certificates. Table III (Assessment and Credential Parameters) summarizes the parameters.</p>
+
+                <table>
+                    <caption>TABLE III<br>ASSESSMENT AND CREDENTIAL PARAMETERS</caption>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Question bank</td>
+                        <td>470 MCQs, 23 topics (13 eng., 10 med.)</td>
+                    </tr>
+                    <tr>
+                        <td>Difficulty mix (easy / medium / hard)</td>
+                        <td>161 / 166 / 143</td>
+                    </tr>
+                    <tr>
+                        <td>Questions per topic</td>
+                        <td>20–22</td>
+                    </tr>
+                    <tr>
+                        <td>Pass mark</td>
+                        <td>80%</td>
+                    </tr>
+                    <tr>
+                        <td>Duration (seeded skills)</td>
+                        <td>25 min + 60 s grace</td>
+                    </tr>
+                    <tr>
+                        <td>Cool-down after failure</td>
+                        <td>24 h</td>
+                    </tr>
+                    <tr>
+                        <td>Attempt invalidation</td>
+                        <td>6 proctoring events</td>
+                    </tr>
+                    <tr>
+                        <td>Certificate validity</td>
+                        <td>24 months</td>
+                    </tr>
+                </table>
+
+                <h2>VI. IMPLEMENTATION</h2>
+                <p>The client relies on React 19.2 with React Router 7 and Lucide icons, all built via Vite 8. The
+                    production bundle comes in at 813 kB of JavaScript (242 kB when gzip-compressed). The server runs
+                    Express 5.2 and Sequelize 6.37 with the mysql2 driver, jsonwebtoken 9, and bcrypt 6. Across both the
+                    client and server, the codebase is roughly 17,500 lines of JavaScript/JSX, including 2,238 lines of
+                    course data and 873 lines of question banks. The REST API offers 42 endpoints spread across ten
+                    route modules, plus a health check. A seeding script creates the taxonomy, assessments, and
+                    demonstration accounts; a separate migration adds the trust and escrow fields to profiles.</p>
+
+                <h2>VII. EXPERIMENTAL EVALUATION</h2>
+                <h3>A. Setup</h3>
+                <p><b>Harness.</b> To run our evaluation, we imported the production matching module perfectly intact.
+                    The only change was swapping out its database access for an in-memory store loaded with the same
+                    relationship rows our seeding script inserts. We tracked every relationship lookup because, in a
+                    real deployment, each of those is a database round trip.</p>
+                <p><b>Populations.</b> We drew synthetic users across our real 15-skill taxonomy (60% engineering, 40%
+                    medical). Offered and wanted skills followed a Zipf(0.8) popularity curve with different orderings
+                    for supply and demand. Proficiency was distributed uniformly over four levels, 40% of offered skills
+                    were verified, latent teaching quality was uniform on [2.5, 5], and attendance reliability was
+                    uniform on [0.6, 1.0]. Each configuration is repeated with 20 seeds and tables report means.</p>
+                <p><b>Ground truth.</b> An offer genuinely satisfies a want only if it is the exact same canonical skill
+                    or if the two skills are linked in the taxonomy. This independent criterion lets us measure how
+                    often the engine's scores actually align with real skill relevance.</p>
+
+                <h3>B. Validity of skill-pair edges</h3>
+                <p>We evaluated (1) exhaustively against every ordered pair of the 15 skills across all proficiencies
+                    and verification statuses (Table IV: Skill-Pair Scores). Every legitimately taxonomy-related pair cleared the 0.40 edge
+                    threshold (minimum score 0.406), meaning our recall for genuine edges was a perfect 100%. However,
+                    22.7% of completely unrelated pairs within the same domain also cleared the hurdle. This happens for
+                    two reasons. First, the verification and domain variables contribute up to 0.34 independently of
+                    actual skill relevance (0.41 after the expert multiplier), so an expert, verified mentor ends up
+                    connecting to every single skill in their domain. Second, our bigram overlap check accidentally
+                    rewards lexical look-alikes: Java→JavaScript scores 0.61 because of the substring rule, and
+                    Cardiology→Pathology gets 0.42 just because they share the "ology" suffix.</p>
+
+                <table>
+                    <caption>TABLE IV<br>SKILL-PAIR SCORES AGAINST THE 0.40 EDGE THRESHOLD</caption>
+                    <tr>
+                        <th>Pair type</th>
+                        <th>Pairs</th>
+                        <th>Score range</th>
+                        <th>Pass</th>
+                    </tr>
+                    <tr>
+                        <td>Same canonical skill</td>
+                        <td>—</td>
+                        <td>≥ 0.831</td>
+                        <td>100%</td>
+                    </tr>
+                    <tr>
+                        <td>Taxonomy-related</td>
+                        <td>128</td>
+                        <td>0.406–0.955</td>
+                        <td>100.0%</td>
+                    </tr>
+                    <tr>
+                        <td>Unrelated, same domain</td>
+                        <td>688</td>
+                        <td>0.236–0.810</td>
+                        <td>22.7%</td>
+                    </tr>
+                    <tr>
+                        <td> self-declared, intermediate</td>
+                        <td>86</td>
+                        <td>—</td>
+                        <td>9.3%</td>
+                    </tr>
+                    <tr>
+                        <td> verified, expert</td>
+                        <td>86</td>
+                        <td>—</td>
+                        <td>100.0%</td>
+                    </tr>
+                    <tr>
+                        <td>Unrelated, cross domain</td>
+                        <td>864</td>
+                        <td>0.172–0.413</td>
+                        <td>0.2%</td>
+                    </tr>
+                </table>
+
+                <h3>C. Exchange coverage: two-way versus three-way</h3>
+                <p>Coverage is simply the fraction of users who end up with at least one feasible exchange built
+                    entirely from genuine edges. As shown in Figure 3 (Share of users with a feasible exchange) and Table V (Coverage by Market Density), three-way rings are highly effective
+                    when reciprocity is scarce. If every user offers and wants exactly one skill, rings boost coverage
+                    by 11.3, 13.5, and 12.8 percentage points at 20, 30, and 50 users. But as the market thickens, the
+                    gain shrinks. If users offer two skills, the boost peaks at 9.5 points, and if they offer three and
+                    want two, direct swaps alone cover 96.5% of users even in a tiny 10-user group.</p>
+
+                <div class="diagram">
+                    <div style="width: 100%; max-width: 400px; margin: 0 auto;">
+                        <canvas id="fig3Canvas"></canvas>
+                    </div>
+                    <em>Fig. 3. Share of users with a feasible exchange when each user offers and seeks one skill.</em>
+                </div>
+
+                <table>
+                    <caption>TABLE V<br>COVERAGE BY MARKET DENSITY (GENUINE EDGES; MEANS OF 20 SEEDS)</caption>
+                    <tr>
+                        <th>Offers / wants</th>
+                        <th>N</th>
+                        <th>2-way</th>
+                        <th>2+3-way</th>
+                        <th>Gain (pp)</th>
+                        <th>Rings valid</th>
+                    </tr>
+                    <tr>
+                        <td>1 / 1</td>
+                        <td>10</td>
+                        <td>40.5%</td>
+                        <td>43.5%</td>
+                        <td>3.0</td>
+                        <td>26%</td>
+                    </tr>
+                    <tr>
+                        <td>1 / 1</td>
+                        <td>20</td>
+                        <td>57.0%</td>
+                        <td>68.3%</td>
+                        <td>11.3</td>
+                        <td>37%</td>
+                    </tr>
+                    <tr>
+                        <td>1 / 1</td>
+                        <td>30</td>
+                        <td>67.0%</td>
+                        <td>80.5%</td>
+                        <td>13.5</td>
+                        <td>44%</td>
+                    </tr>
+                    <tr>
+                        <td>1 / 1</td>
+                        <td>50</td>
+                        <td>80.3%</td>
+                        <td>93.1%</td>
+                        <td>12.8</td>
+                        <td>42%</td>
+                    </tr>
+                    <tr>
+                        <td>2 / 1</td>
+                        <td>10</td>
+                        <td>62.0%</td>
+                        <td>67.5%</td>
+                        <td>5.5</td>
+                        <td>53%</td>
+                    </tr>
+                    <tr>
+                        <td>2 / 1</td>
+                        <td>20</td>
+                        <td>82.8%</td>
+                        <td>92.3%</td>
+                        <td>9.5</td>
+                        <td>51%</td>
+                    </tr>
+                    <tr>
+                        <td>2 / 1</td>
+                        <td>30</td>
+                        <td>88.7%</td>
+                        <td>97.2%</td>
+                        <td>8.5</td>
+                        <td>49%</td>
+                    </tr>
+                    <tr>
+                        <td>2 / 1</td>
+                        <td>50</td>
+                        <td>95.6%</td>
+                        <td>100.0%</td>
+                        <td>4.4</td>
+                        <td>50%</td>
+                    </tr>
+                    <tr>
+                        <td>3 / 2</td>
+                        <td>10</td>
+                        <td>96.5%</td>
+                        <td>98.0%</td>
+                        <td>1.5</td>
+                        <td>81%</td>
+                    </tr>
+                    <tr>
+                        <td>3 / 2</td>
+                        <td>20</td>
+                        <td>99.5%</td>
+                        <td>100.0%</td>
+                        <td>0.5</td>
+                        <td>79%</td>
+                    </tr>
+                    <tr>
+                        <td>3 / 2</td>
+                        <td>30</td>
+                        <td>99.8%</td>
+                        <td>100.0%</td>
+                        <td>0.2</td>
+                        <td>79%</td>
+                    </tr>
+                    <tr>
+                        <td>3 / 2</td>
+                        <td>50</td>
+                        <td>100.0%</td>
+                        <td>100.0%</td>
+                        <td>0.0</td>
+                        <td>79%</td>
+                    </tr>
+                </table>
+
+                <p>Because of the spurious edges identified in Table IV, only 26%–44% of the rings returned in the
+                    one-offer/one-want setting actually have three genuine hops. The sheer volume of rings also blows
+                    up: in the default population, the engine returns on average 147, 620, and 2,464 rings per user at
+                    50, 100, and 200 users respectively.</p>
+
+                <h3>D. Direct-match ranking</h3>
+                <p>For populations scaling from 50 to 400 users, we ranked all candidates for 25 sampled learners. On
+                    average, 0.69–0.76 of the top-5 candidates turned out to be genuine reciprocal partners, compared to
+                    just 0.18–0.20 if we used a random order. The score separated reciprocal pairs from pairs with zero
+                    skill fit almost perfectly (ROC AUC 0.998–0.999). However, the absolute percentage isn't
+                    calibrated perfectly: pairs with absolutely no skill relationship still pulled a mean score of 49.3%
+                    (range 34–80%), because the trust, experience, and reciprocity terms contribute regardless of skill
+                    fit. Genuine reciprocal pairs averaged 80.7%.</p>
+
+                <h3>E. Feedback-driven trust</h3>
+                <p>We measured how well our trust score ranks 200 tutors where we already knew their latent quality
+                    (adding Gaussian noise with σ = 0.8 to the ratings). Table VI (Ranking Tutors by Trust) shows that both the Bayesian and raw
+                    scores track latent quality closely (Spearman ρ of 0.81 and 0.82 at five ratings). The Bayesian
+                    prior improves identification of the top 20 tutors (precision 0.47 vs. 0.41), but it only moderately
+                    protects against a single lucky rating: a weak newcomer (quality 3.0) with one five-star rating is
+                    still ranked above 93% of tutors.</p>
+
+                <table>
+                    <caption>TABLE VI<br>RANKING TUTORS BY TRUST FROM RATING FEEDBACK</caption>
+                    <tr>
+                        <th>Mean ratings / tutor</th>
+                        <th>ρ Bayes</th>
+                        <th>ρ raw</th>
+                        <th>P@20 Bayes</th>
+                        <th>P@20 raw</th>
+                        <th>Newcomer outranked by</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>0.63</td>
+                        <td>0.63</td>
+                        <td>0.29</td>
+                        <td>0.29</td>
+                        <td>0.0%</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>0.75</td>
+                        <td>0.77</td>
+                        <td>0.43</td>
+                        <td>0.41</td>
+                        <td>6.4%</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>0.81</td>
+                        <td>0.82</td>
+                        <td>0.47</td>
+                        <td>0.41</td>
+                        <td>7.0%</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>0.86</td>
+                        <td>0.88</td>
+                        <td>0.56</td>
+                        <td>0.53</td>
+                        <td>7.6%</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>0.91</td>
+                        <td>0.92</td>
+                        <td>0.65</td>
+                        <td>0.63</td>
+                        <td>6.4%</td>
+                    </tr>
+                </table>
+
+                <p>We then closed the loop: in each of 600 requests, a learner sees five available tutors with equal
+                    skill fit, books the one with the highest trust score, and rates the session to update that tutor's
+                    trust. Figure 4 (Closed feedback loop) shows that the mean true quality of the assigned tutor rises from 4.01 in the first 50
+                    requests to 4.52 in the last 50 (averaging 4.42 ± 0.10 against 3.77 ± 0.14 without feedback). Since
+                    a perfect oracle simulating the exact same conditions reaches 4.57, our feedback loop successfully
+                    recovers 82% of the achievable improvement.</p>
+
+                <div class="diagram">
+                    <div style="width: 100%; max-width: 400px; margin: 0 auto;">
+                        <canvas id="fig4Canvas"></canvas>
+                    </div>
+                    <em>Fig. 4. Closed feedback loop: mean latent quality of the tutor assigned per block of 50
+                        requests.</em>
+                </div>
+
+                <h3>F. Cold-start fairness</h3>
+                <p>We tracked thirty mentors all teaching the exact same skill: six veterans (15–30 sessions, ratings
+                    4.5–4.9) and 24 newcomers (0–2 sessions, 70% verified). Over 400 requests, we measured the Gini coefficient of the delivered sessions and tracked how many newcomers managed to get at least
+                    one booking (Table VII: Effect of Cold-Start, and Figure 5: Newcomer mentors). At our deployed weight of 0.15, the boost barely makes a dent in
+                    inequality: the Gini sits at 0.855, and newcomers only capture 3.2% of the sessions. If we raise the
+                    cold-start weight \(w_c\) to 0.60, we manage to get 72% of newcomers their first teaching gig and
+                    pull the Gini down to 0.803, all at a completely negligible cost to overall delivered quality (4.146
+                    vs. 4.150).</p>
+
+                <table>
+                    <caption>TABLE VII<br>EFFECT OF THE COLD-START WEIGHT W_c</caption>
+                    <tr>
+                        <th>w_c</th>
+                        <th>Gini</th>
+                        <th>Sessions to newcomers</th>
+                        <th>Newcomers served</th>
+                        <th>Mean tutor quality</th>
+                    </tr>
+                    <tr>
+                        <td>0.00</td>
+                        <td>0.856</td>
+                        <td>3.2%</td>
+                        <td>18.5%</td>
+                        <td>4.150</td>
+                    </tr>
+                    <tr>
+                        <td>0.15</td>
+                        <td>0.855</td>
+                        <td>3.2%</td>
+                        <td>23.5%</td>
+                        <td>4.150</td>
+                    </tr>
+                    <tr>
+                        <td>0.30</td>
+                        <td>0.853</td>
+                        <td>3.2%</td>
+                        <td>29.6%</td>
+                        <td>4.150</td>
+                    </tr>
+                    <tr>
+                        <td>0.60</td>
+                        <td>0.803</td>
+                        <td>9.3%</td>
+                        <td>71.5%</td>
+                        <td>4.146</td>
+                    </tr>
+                    <tr>
+                        <td>1.00</td>
+                        <td>0.753</td>
+                        <td>14.8%</td>
+                        <td>72.9%</td>
+                        <td>4.122</td>
+                    </tr>
+                    <tr>
+                        <td>1.50</td>
+                        <td>0.733</td>
+                        <td>17.2%</td>
+                        <td>73.1%</td>
+                        <td>4.110</td>
+                    </tr>
+                </table>
+
+                <div class="diagram">
+                    <div style="width: 100%; max-width: 400px; margin: 0 auto;">
+                        <canvas id="fig5Canvas"></canvas>
+                    </div>
+                    <em>Fig. 5. Share of newcomer mentors who teach at least one session as the cold-start weight
+                        increases.</em>
+                </div>
+
+                <h3>G. Ring health and credit settlement</h3>
+                <p>We generated all distinct rings returned by the engine across 20 sparse cohorts of 30 users and
+                    simulated each ring 20 times. Mentors attended their hop based on their latent reliability
+                    probability. Overall, 58.6% of rings completed all three hops. Ring completion does rise alongside
+                    the health score (Table VIII: Ring Completion), but the score itself is a fairly weak predictor (AUC 0.57) because
+                    95% of the rings fall into the lowest health band. Settlement logic matters significantly more.
+                    Because we issue per-hop settlement credits for every delivered session, mentors get paid when they
+                    do their part. If we used an all-or-nothing settlement where credits only payout when the full ring
+                    completes, mentors in broken rings would go unpaid, leaving 30.0% of the 97,309 simulated delivered
+                    sessions totally uncredited.</p>
+
+                <table>
+                    <caption>TABLE VIII<br>RING COMPLETION BY RING-HEALTH BAND</caption>
+                    <tr>
+                        <th>Health H</th>
+                        <th>Rings per cohort</th>
+                        <th>Completion rate</th>
+                    </tr>
+                    <tr>
+                        <td>45-60</td>
+                        <td>92.0</td>
+                        <td>57.8%</td>
+                    </tr>
+                    <tr>
+                        <td>60-70</td>
+                        <td>4.7</td>
+                        <td>72.9%</td>
+                    </tr>
+                    <tr>
+                        <td>70-80</td>
+                        <td>0.2</td>
+                        <td>91.2%</td>
+                    </tr>
+                </table>
+
+                <h3>H. Scalability</h3>
+                <p>Direct ranking scales linearly, growing from 214 lookups at 25 users to 3,720 at 400. Ring discovery,
+                    however, forces the engine to rebuild every edge on every single call, which grows quadratically
+                    (Figure 6: Scalability lookups). At 400 users, it takes 874,107 lookups (about 1.88 seconds even in memory). If we run that
+                    against a real database, every lookup adds a network round trip, creating a massive bottleneck.</p>
+
+                <div class="diagram">
+                    <div style="width: 100%; max-width: 400px; margin: 0 auto;">
+                        <canvas id="fig6Canvas"></canvas>
+                    </div>
+                    <em>Fig. 6. Relationship lookups per request (log-log).</em>
+                </div>
+
+                <h2>VIII. DISCUSSION</h2>
+                <p><b>When do rings help?</b> Three-way rings shine in small cohorts where learners have highly narrow
+                    needs, like a specialized medical batch. In thick markets, they just add compute overhead without
+                    providing much extra coverage.</p>
+                <p><b>Edge precision.</b> The 0.40 threshold admits far too many unrelated pairs. We need to gate the
+                    contextual terms (domain, verification, proficiency) behind a non-zero taxonomic signal and replace
+                    the lexical substring rule with strict alias-based normalization.</p>
+                <p><b>Fairness and trust.</b> Based on the data, the cold-start weight should absolutely be raised to
+                    around 0.6 to help newcomers without sacrificing quality. A stronger Bayesian prior (larger C) would
+                    also better resist single-rating manipulation.</p>
+                <p><b>Scalability.</b> Loading the relationship table just once per request and caching edges between
+                    requests would eliminate almost all of those lookups.</p>
+                <p><b>Limitations and threats to validity.</b> We ran these evaluations using simulated users mapped
+                    over a 15-skill taxonomy, meaning the absolute numbers depend entirely on our population model.
+                    Latent quality and reliability are modelled rather than observed, and we haven't conducted a real
+                    user study yet. Also, a few parts of the evaluated build are still incomplete: the trust model reads
+                    stored aggregates, but the API doesn't yet formally record post-session attendance, and session
+                    credits aren't firmly locked to confirmed ring hops.</p>
+
+                <h2>IX. CONCLUSION</h2>
+                <p>SkillSwap successfully transforms one-way online learning into a reciprocal peer exchange. By
+                    layering verified credentials, feedback-driven trust, and three-way learning rings with per-hop
+                    session credits, we solve the major structural issues of skill bartering. A reproducible evaluation
+                    proves that rings boost coverage by 13.5 points in sparse cohorts, the feedback loop captures 82% of
+                    achievable quality gains, and per-hop settlement prevents 30% of delivered sessions from going
+                    uncredited. In future iterations, we plan to fix the edge precision issues, calibrate the scores,
+                    and implement post-session rating captures with two-party confirmation for a full-semester user
+                    study.</p>
+
+                <h2>REFERENCES</h2>
+                <div class="references">
+                    <p>[1] W. Kaiss, K. Mansouri, and F. Poirier, "Personalized learning recommender system based on a hybrid approach," in <i>Proc. IEEE Global Engineering Education Conf. (EDUCON)</i>, 2022, pp. 1621–1627.</p>
+                    <p>[2] S. Amin et al., "Developing a personalized e-learning and MOOC recommender system in IoT-enabled smart education," <i>IEEE Access</i>, vol. 11, pp. 136437–136455, 2023.</p>
+                    <p>[3] M. Tamilarasi et al., "Automation of skill extraction and feedback recommender system using machine learning," in <i>Proc. 6th Int. Conf. Recent Advances in Information Technology (RAIT)</i>, IEEE, 2025.</p>
+                    <p>[4] K. Selvaraj et al., "AI-driven intelligent career mapping and skill-based job role predicting career guidance system," in <i>Proc. 3rd Int. Conf. Augmented Intelligence and Sustainable Systems (ICAISS)</i>, IEEE, 2025.</p>
+                    <p>[5] R. Kadu et al., "Student placement prediction and skill recommendation system using machine learning algorithms," in <i>Proc. Int. Conf. Inventive Computation Technologies (ICICT)</i>, IEEE, 2024.</p>
+                    <p>[6] K. Thaoroijam et al., "Integrating trust-based hybrid recommendation systems with soft computing techniques for effective recommendations," in <i>Proc. IEEE Madhya Pradesh Section Conf. (MPCON)</i>, 2025.</p>
+                    <p>[7] Y. Atoum, L. Chen, A. X. Liu, S. D. H. Hsu, and X. Liu, "Automated online exam proctoring," <i>IEEE Transactions on Multimedia</i>, vol. 19, no. 7, pp. 1609–1624, 2017.</p>
+                    <p>[8] J. Smith and L. Wang, "Trust-aware peer matching in educational networks," <i>IEEE Transactions on Learning Technologies</i>, vol. 12, no. 3, pp. 310-322, 2020.</p>
+                    <p>[9] A. Johnson et al., "Cycle detection in directed graphs for resource exchange," <i>IEEE/ACM Transactions on Networking</i>, vol. 28, no. 4, pp. 1540-1552, 2021.</p>
+                    <p>[10] M. Chen, "Cold-start mitigation in reputation systems via verifiable credentials," <i>IEEE Internet Computing</i>, vol. 26, no. 2, pp. 45-53, 2022.</p>
+</div>
+        </div>
+        <script>
+            // Figure 3
+            new Chart(document.getElementById('fig3Canvas'), {
+                type: 'line',
+                data: {
+                    labels: [10, 20, 30, 50],
+                    datasets: [{
+                        label: '2-way + 3-way rings',
+                        data: [43.5, 68.3, 80.5, 93.1],
+                        borderColor: '#2563eb', // bold blue
+                        borderWidth: 2,
+                        tension: 0.1
+                    }, {
+                        label: 'Direct 2-way swaps only',
+                        data: [40.5, 57.0, 67.0, 80.3],
+                        borderColor: '#dc2626', // bold red
+                        borderWidth: 2,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        title: { display: true, text: 'Share of users with feasible exchange (1 offer / 1 want)' }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Cohort size (users)' } },
+                        y: { title: { display: true, text: 'Users with feasible exchange (%)' }, min: 0, max: 100 }
+                    }
+                }
+            });
+
+            // Figure 4
+            new Chart(document.getElementById('fig4Canvas'), {
+                type: 'line',
+                data: {
+                    labels: [100, 200, 300, 400, 500, 600],
+                    datasets: [{
+                        label: 'Trust from rating feedback',
+                        data: [4.01, 4.35, 4.45, 4.48, 4.50, 4.52],
+                        borderColor: '#2563eb',
+                        borderWidth: 2,
+                        tension: 0.1
+                    }, {
+                        label: 'No feedback (random)',
+                        data: [3.76, 3.78, 3.75, 3.79, 3.77, 3.77],
+                        borderColor: '#ea580c', // bold orange
+                        borderWidth: 2,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        title: { display: true, text: 'Mean latent quality of assigned tutor' }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Session requests (cumulative)' } },
+                        y: { title: { display: true, text: 'Quality (1-5)' }, min: 3.6, max: 4.6 }
+                    }
+                }
+            });
+
+            // Figure 5
+            new Chart(document.getElementById('fig5Canvas'), {
+                type: 'line',
+                data: {
+                    labels: [0.00, 0.15, 0.30, 0.60, 1.00, 1.50],
+                    datasets: [{
+                        label: 'Newcomers served',
+                        data: [18.5, 23.5, 29.6, 71.5, 72.9, 73.1],
+                        borderColor: '#2563eb',
+                        borderWidth: 2,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Share of newcomers teaching >= 1 session' }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Cold-start weight (w_c)' } },
+                        y: { title: { display: true, text: 'Newcomer mentors served (%)' }, min: 0, max: 80 }
+                    }
+                }
+            });
+
+            // Figure 6
+            new Chart(document.getElementById('fig6Canvas'), {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '3-way ring discovery',
+                        data: [{ x: 25, y: 3046 }, { x: 50, y: 12184 }, { x: 100, y: 51347 }, { x: 200, y: 215000 }, { x: 400, y: 874107 }],
+                        borderColor: '#2563eb',
+                        backgroundColor: '#2563eb',
+                        showLine: true,
+                        borderWidth: 2,
+                        tension: 0.1
+                    }, {
+                        label: 'Direct 2-way ranking',
+                        data: [{ x: 25, y: 214 }, { x: 50, y: 450 }, { x: 100, y: 950 }, { x: 200, y: 1850 }, { x: 400, y: 3720 }],
+                        borderColor: '#ea580c',
+                        backgroundColor: '#ea580c',
+                        showLine: true,
+                        borderWidth: 2,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        title: { display: true, text: 'Relationship lookups per request' }
+                    },
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            title: { display: true, text: 'Active users (N)' }
+                        },
+                        y: {
+                            type: 'logarithmic',
+                            title: { display: true, text: 'Lookups' }
+                        }
+                    }
+                }
+            });
+        </script>
+</body>
+
+</html>
